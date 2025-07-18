@@ -96,7 +96,7 @@ function Login({ setUserData }) {
         </form>
 
         <p className="text-xs text-gray-400 text-center mt-6">
-          © 2025 KKD HRMS. All rights reserved.
+          © 2025 Akshay Software Technologies Private Limited. All rights reserved.
         </p>
       </motion.div>
     </div>
