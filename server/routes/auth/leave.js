@@ -102,11 +102,13 @@ router.get('/pending-leaves', async (req, res) => {
       return res.status(400).json({ success: false, message: l_ClsErrorStatus?.ls_Message || "Failed to fetch pending leaves" });
     }
     const pendingLeaves = lst_ClsPendingLeavDtls.map(item => ({
-      leaveType: item.ls_LeavTyp,
-      leaveName: item.ls_LeavName,
-      openLeave: item.ls_OpenLeav,
-      usedLeave: item.ls_UsedLeav,
-      pendingLeave: item.ls_PendLeav
+      leaveType: item.ls_LeavTyp || '',
+      leaveName: item.ls_LeavName || '',
+      openLeave: parseFloat(item.ls_OpenLeav) || 0,
+      usedLeave: parseFloat(item.ls_UsedLeav) || 0,
+      pendingLeave: parseFloat(item.ls_PendLeav) || 0,
+      closeLeave: parseFloat(item.ls_CloseLeav) || 0,
+      rejectedLeave: parseFloat(item.ls_RejLeav) || 0
     }));
     return res.json({ success: true, message: "Pending leaves fetched successfully", pendingLeaves });
   } catch (err) {

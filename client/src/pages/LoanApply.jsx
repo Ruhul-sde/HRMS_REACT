@@ -56,7 +56,7 @@ const LoanApply = ({ userData, setUserData }) => {
   const fetchLoanTypes = useCallback(async () => {
     setLoading(true);
     setError('');
-    
+
     try {
       const res = await axios.get('http://localhost:5000/api/loan-types');
       if (res.data?.success && res.data.loanTypes?.length > 0) {
@@ -79,7 +79,7 @@ const LoanApply = ({ userData, setUserData }) => {
   // Handle form changes
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    
+
     setFormErrors(prev => ({ ...prev, [name]: undefined }));
 
     setFormData(prev => {
@@ -138,7 +138,7 @@ const LoanApply = ({ userData, setUserData }) => {
   // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsSubmitting(true);
@@ -229,7 +229,7 @@ const LoanApply = ({ userData, setUserData }) => {
                   >
                     <option value="">Select loan type</option>
                     {loanTypes.map((type, idx) => (
-                      <option key={idx} value={type.ls_NAME || type.ls_Code || type.name}>
+                      <option key={idx} value={type.ls_CODE || type.ls_Code}>
                         {type.ls_NAME || type.ls_Code || type.name || `Loan Type ${idx + 1}`}
                       </option>
                     ))}
@@ -262,7 +262,7 @@ const LoanApply = ({ userData, setUserData }) => {
             </div>
           </div>
         );
-      
+
       case 2:
         return (
           <div className="space-y-6">
@@ -332,12 +332,12 @@ const LoanApply = ({ userData, setUserData }) => {
             </div>
           </div>
         );
-      
+
       case 3:
         return (
           <div className="space-y-6">
             <CalculationCard formData={formData} />
-            
+
             <InputField
               icon={FileText}
               label="Purpose of Loan"
@@ -403,7 +403,7 @@ const LoanApply = ({ userData, setUserData }) => {
             </div>
           </div>
         );
-      
+
       default:
         return null;
     }
@@ -438,7 +438,7 @@ const LoanApply = ({ userData, setUserData }) => {
                   style={{ width: `${(activeStep-1)/2*100}%` }}
                 ></div>
               </div>
-              
+
               {/* Steps */}
               {[1, 2, 3].map(step => (
                 <div key={step} className="flex flex-col items-center">
@@ -479,7 +479,7 @@ const LoanApply = ({ userData, setUserData }) => {
             {/* Sidebar */}
             <div className="space-y-6">
               <CalculationCard formData={formData} />
-              
+
               {/* Info Card */}
               <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
@@ -488,7 +488,7 @@ const LoanApply = ({ userData, setUserData }) => {
                   </div>
                   <h3 className="text-lg font-semibold text-gray-800">Loan Benefits</h3>
                 </div>
-                
+
                 <div className="space-y-3 text-sm text-gray-600">
                   {[
                     "Competitive interest rates",
@@ -513,11 +513,11 @@ const LoanApply = ({ userData, setUserData }) => {
                   </div>
                   <h3 className="text-lg font-semibold text-gray-800">Need Help?</h3>
                 </div>
-                
+
                 <p className="text-sm text-gray-600 mb-4">
                   Our loan specialists are available to assist you.
                 </p>
-                
+
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Clock className="w-4 h-4" />

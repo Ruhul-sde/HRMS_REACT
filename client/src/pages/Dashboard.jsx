@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -46,7 +45,7 @@ const Dashboard = ({ userData, setUserData }) => {
   // Format date to "DD-MM-YYYY" from "DD-MM-YYYY HH:mm:ss"
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';
-    return dateStr.split(' ')[0]; // Strip time
+    return dateStr.split(' ')[0];
   };
 
   // Get profile picture URL - fallback to default if not available

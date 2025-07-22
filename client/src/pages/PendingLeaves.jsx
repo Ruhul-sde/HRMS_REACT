@@ -69,7 +69,56 @@ const PendingLeaves = ({ userData, setUserData }) => {
             <p>No pending leaves found.</p>
           </div>
         ) : (
-          <Card>
+          <>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-6">
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-green-600">
+                  {pendingLeaves.reduce((sum, leave) => sum + (parseFloat(leave.openLeave) || 0), 0)}
+                </div>
+                <div className="text-sm text-gray-600">Total Open</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-orange-600">
+                  {pendingLeaves.reduce((sum, leave) => sum + (parseFloat(leave.usedLeave) || 0), 0)}
+                </div>
+                <div className="text-sm text-gray-600">Total Used</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-blue-600">
+                  {pendingLeaves.reduce((sum, leave) => sum + (parseFloat(leave.pendingLeave) || 0), 0)}
+                </div>
+                <div className="text-sm text-gray-600">Total Pending</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-gray-600">
+                  {pendingLeaves.reduce((sum, leave) => sum + (parseFloat(leave.closeLeave) || 0), 0)}
+                </div>
+                <div className="text-sm text-gray-600">Total Closed</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-red-600">
+                  {pendingLeaves.reduce((sum, leave) => sum + (parseFloat(leave.rejectedLeave) || 0), 0)}
+                </div>
+                <div className="text-sm text-gray-600">Total Rejected</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-purple-600">
+                  {pendingLeaves.length}
+                </div>
+                <div className="text-sm text-gray-600">Leave Types</div>
+              </div>
+              <div className="bg-white rounded-lg shadow p-4 text-center">
+                <div className="text-2xl font-bold text-indigo-600">
+                  {pendingLeaves.reduce((sum, leave) => 
+                    sum + (parseFloat(leave.openLeave) || 0) + (parseFloat(leave.pendingLeave) || 0), 0
+                  )}
+                </div>
+                <div className="text-sm text-gray-600">Available</div>
+              </div>
+            </div>
+
+            <Card>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200 text-sm text-left">
                 <thead className="bg-blue-600 text-white">
@@ -79,17 +128,29 @@ const PendingLeaves = ({ userData, setUserData }) => {
                     <th className="px-4 py-3 font-medium text-center">Open</th>
                     <th className="px-4 py-3 font-medium text-center">Used</th>
                     <th className="px-4 py-3 font-medium text-center">Pending</th>
+                    <th className="px-4 py-3 font-medium text-center">Closed</th>
+                    <th className="px-4 py-3 font-medium text-center">Rejected</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-100">
                   {pendingLeaves.map((leave, index) => (
                     <tr key={index} className="hover:bg-gray-50 transition-all">
-                      <td className="px-4 py-2">{leave.leaveType}</td>
-                      <td className="px-4 py-2">{leave.leaveName}</td>
-                      <td className="px-4 py-2 text-center">{leave.openLeave}</td>
-                      <td className="px-4 py-2 text-center">{leave.usedLeave}</td>
+                      <td className="px-4 py-2 font-medium">{leave.leaveType || 'N/A'}</td>
+                      <td className="px-4 py-2">{leave.leaveName || 'N/A'}</td>
+                      <td className="px-4 py-2 text-center font-semibold text-green-600">
+                        {parseFloat(leave.openLeave) || 0}
+                      </td>
+                      <td className="px-4 py-2 text-center font-semibold text-orange-600">
+                        {parseFloat(leave.usedLeave) || 0}
+                      </td>
                       <td className="px-4 py-2 text-center font-semibold text-blue-600">
-                        {leave.pendingLeave}
+                        {parseFloat(leave.pendingLeave) || 0}
+                      </td>
+                      <td className="px-4 py-2 text-center font-semibold text-gray-600">
+                        {parseFloat(leave.closeLeave) || 0}
+                      </td>
+                      <td className="px-4 py-2 text-center font-semibold text-red-600">
+                        {parseFloat(leave.rejectedLeave) || 0}
                       </td>
                     </tr>
                   ))}
@@ -97,6 +158,7 @@ const PendingLeaves = ({ userData, setUserData }) => {
               </table>
             </div>
           </Card>
+          </>
         )}
       </div>
     </div>
